@@ -9,22 +9,20 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
-
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
-  })
-
+    password: new FormControl('', [Validators.required]),
+  });
 
   firebaseSvc = inject(FirebaseService);
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  submit(){
-    this.firebaseSvc.signIn(this.form.value as User).then(res => {
-      console.log(res);
-    })
+  submit() {
+    if (this.form.valid) {
+      this.firebaseSvc.signIn(this.form.value as User).then(res => {
+        console.log(res);
+      })
+    }
   }
-
 }

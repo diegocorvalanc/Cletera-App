@@ -15,7 +15,7 @@
       label="Correo"
       ></app-custom-input>
       <!--Validacion correo-->
-        <div class="validators" *ngIf="form.controls.email.errors $$ form.controls.email.touched">
+        <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
           <div *ngIf="form.controls.email.errors?.['required']">El correo es requerido</div>
           <div *ngIf="form.controls.email.errors?.['email']">Ingrese un correo valido</div>
         </div>
@@ -26,7 +26,7 @@
       label="contraseña"
       icon="lock-closed-outline"></app-custom-input>
       <!--Validación contraseña-->
-        <div class="validators" *ngIf="form.controls.password.errors $$ form.controls.password.touched">
+        <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
           <div *ngIf="form.controls.password.errors?.['required']">la contraseña es requerida</div>
         </div>
 
@@ -35,6 +35,7 @@
 
         <ion-button  expand="block"  mode="ios" class="submit" type="submit" [disabled]="form.invalid">
           Ingresar
+          nuevamente sin problemas
           <ion-icon slot="end" name="log-in-outline"></ion-icon>
         </ion-button>
 
