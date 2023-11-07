@@ -33,7 +33,7 @@ export class MainPage implements OnInit {
   }
 
   // Cerrar sesión
-  signOut() {
+signOut() {
     this.firebaseSvc.signOut();
   }
 }

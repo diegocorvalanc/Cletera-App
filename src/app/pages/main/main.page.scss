@@ -22,9 +22,16 @@ ion-item {
   }
 }
 
-.avatar-icon {
-    font-size: 100px;
+ion-avatar {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
 }
+
+.empty-icon {
+  font-size: 100px;
+}
+
 h4 {
   margin-top: 5px;
   font-weight: bold;

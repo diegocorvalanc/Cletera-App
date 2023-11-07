@@ -22,18 +22,18 @@ export class AddUpdateProductComponent implements OnInit {
   });
 
   firebaseSvc = inject(FirebaseService);
-  utilSvc = inject(UtilsService);
+  utilsSvc = inject(UtilsService);
 
   user = {} as User;
 
   ngOnInit() {
-    this.user = this.utilSvc.getFromLocalStorage('user');
+    this.user = this.utilsSvc.getFromLocalStorage('user');
     if (this.product) this.form.setValue(this.product);
   }
 
   // Tomar o seleccionar imagen
   async takeImage() {
-    const dataUrl = (await this.utilSvc.takePicture('Imagen del producto'))
+    const dataUrl = (await this.utilsSvc.takePicture('Imagen del producto'))
       .dataUrl;
     this.form.controls.image.setValue(dataUrl);
   }
@@ -57,7 +57,7 @@ export class AddUpdateProductComponent implements OnInit {
   async createProduct() {
     let path = `users/${this.user.uid}/products`;
 
-    const loading = await this.utilSvc.loading();
+    const loading = await this.utilsSvc.loading();
     await loading.present();
 
     // Subir la imagen y obtener la url
@@ -71,9 +71,9 @@ export class AddUpdateProductComponent implements OnInit {
     this.firebaseSvc
       .addDocument(path, this.form.value)
       .then(async (res) => {
-        this.utilSvc.dismissModal({ success: true });
+        this.utilsSvc.dismissModal({ success: true });
 
-        this.utilSvc.presentToast({
+        this.utilsSvc.presentToast({
           message: 'Producto creado exitosamente',
           duration: 1500,
           color: 'success',
@@ -84,7 +84,7 @@ export class AddUpdateProductComponent implements OnInit {
       .catch((error) => {
         console.log(error);
 
-        this.utilSvc.presentToast({
+        this.utilsSvc.presentToast({
           message: error.message,
           duration: 2500,
           color: 'primary',
@@ -101,7 +101,7 @@ export class AddUpdateProductComponent implements OnInit {
   async updateProduct() {
     let path = `users/${this.user.uid}/products/${this.product.id}`;
 
-    const loading = await this.utilSvc.loading();
+    const loading = await this.utilsSvc.loading();
     await loading.present();
 
     // Si cambió la imagen, subir la nueva y obtener la url
@@ -118,9 +118,9 @@ export class AddUpdateProductComponent implements OnInit {
     this.firebaseSvc
       .updateDocument(path, this.form.value)
       .then(async (res) => {
-        this.utilSvc.dismissModal({ success: true });
+        this.utilsSvc.dismissModal({ success: true });
 
-        this.utilSvc.presentToast({
+        this.utilsSvc.presentToast({
           message: 'Producto actualizado exitosamente',
           duration: 1500,
           color: 'success',
@@ -131,7 +131,7 @@ export class AddUpdateProductComponent implements OnInit {
       .catch((error) => {
         console.log(error);
 
-        this.utilSvc.presentToast({
+        this.utilsSvc.presentToast({
           message: error.message,
           duration: 2500,
           color: 'primary',
