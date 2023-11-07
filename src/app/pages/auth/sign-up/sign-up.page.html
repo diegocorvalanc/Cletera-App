@@ -23,7 +23,7 @@
         *ngIf="form.controls.name.errors && form.controls.name.touched"
       >
         <div *ngIf="form.controls.name.errors?.['required']">
-          El correo es requerido
+          Este campo es requerido
         </div>
         <div *ngIf="form.controls.name.errors?.['minlenght']">
           El usuario debe tener al menos 4 caracteres
