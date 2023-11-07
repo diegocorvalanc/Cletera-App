@@ -1,9 +1,12 @@
 # Cletera-App
 ## Instalaciones requeridas
 
-Instalacion de Node JS version recomendada V 18
+Instalación de Node.js version recomendada V 18.18.1
 Instalaciones de ionic framework: npm i -g @ionic/cli V7
 
 
-Instalacion extención firebase
-npm i firebase @angular/fire
+Instalación extención firebase
+npm install firebase@9.23.0 --save
+
+Instalación Angular
+npm install @angular/fire@7.6.1 --save
