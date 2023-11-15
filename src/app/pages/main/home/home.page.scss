@@ -1,0 +1,22 @@
+ion-card {
+    gap:100px;
+    padding: 20px 0;
+    border-radius: 15px;
+}
+
+ion-content {
+    --padding-bottom: 70px;
+}
+
+#map {
+	height: 100px;
+	width: 60%;
+}
+
+.rating ion-icon {
+    color: #eee;
+  }
+
+  .rating ion-icon.filled {
+    color: #fbc02d;
+  }
