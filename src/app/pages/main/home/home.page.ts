@@ -5,7 +5,6 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateProductComponent } from 'src/app/shared/components/add-update-product/add-update-product.component';
 import { orderBy, where } from 'firebase/firestore';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -19,6 +18,11 @@ export class HomePage implements OnInit {
   loading: boolean = false;
 
   ngOnInit() {}
+
+  rateProduct(product, rating) {
+    product.rating = rating;
+    // Save the rating to your backend
+  }
 
   // Datos de usuario
   user(): User {
@@ -39,8 +43,7 @@ export class HomePage implements OnInit {
   // Obtener las ganancias
   getProfits() {
     return this.products.reduce(
-      (index, product) => index +
-      product.price * product.soldUnits,
+      (index, product) => index + product.price * product.soldUnits,
       0
     );
   }
