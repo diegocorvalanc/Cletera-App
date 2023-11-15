@@ -7,3 +7,16 @@ ion-card {
 ion-content {
     --padding-bottom: 70px;
 }
+
+#map {
+	height: 100px;
+	width: 60%;
+}
+
+.rating ion-icon {
+    color: #eee;
+  }
+
+  .rating ion-icon.filled {
+    color: #fbc02d;
+  }
