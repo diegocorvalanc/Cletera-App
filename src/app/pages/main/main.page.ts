@@ -14,6 +14,7 @@ export class MainPage implements OnInit {
     { title: 'Inicio', url: '/main/home', icon: 'home-outline' },
     { title: 'Perfil', url: '/main/profile', icon: 'person-outline' },
     { title: 'Nosotros', url: '/main/nosotros', icon: 'book-outline' },
+
   ];
 
   router = inject(Router);
