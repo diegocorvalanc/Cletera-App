@@ -89,6 +89,8 @@ ion-button {
 
 .product-item {
     --padding-top: 20px;
+    border: 1px solid #000; /* Add a black border */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow for depth */
 
     ion-avatar {
         width: 70px;
@@ -128,4 +130,9 @@ ion-button {
     .add-update-modal {
         --height: 680px;
     }
+}
+
+.list-md {
+    padding-top: 2px;
+    padding-bottom: 2px;
 }

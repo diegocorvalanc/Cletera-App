@@ -1,6 +1,6 @@
 <app-header [showMenu]="true" title="Inicio"></app-header>
 
-<ion-content>
+<ion-content class="background">
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -9,7 +9,7 @@
   <!-- Carrusel -->
 
   <!-- Productos -->
-  <ion-list *ngIf="!loading">
+  <ion-list *ngIf="!loading && products?.length">
     <ion-item-sliding class="product-item" *ngFor="let p of products">
       <ion-item>
         <ion-avatar slot="start">

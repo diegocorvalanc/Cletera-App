@@ -10,13 +10,14 @@ export class CustomInputComponent  implements OnInit {
 
 
   @Input() control!: FormControl;
-  @Input() type!: string;
+  @Input() type: string = 'password';
   @Input() label!: string;
   @Input() autocomplete!: string;
   @Input() icon!: string;
 
   isPassword!: boolean;
   hide: boolean = true;
+
 
   constructor() { }
 
