@@ -6,8 +6,6 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <!-- Carrusel -->
-
   <!-- Productos -->
   <ion-list *ngIf="!loading && products?.length">
     <ion-item-sliding class="product-item" *ngFor="let p of products">
@@ -18,13 +16,10 @@
         <ion-label>
           <div class="name">{{p.name}}</div>
           <div class="data">
-            <strong>Precio:</strong>{{p.price | currency: 'CLP '}} <br>
-            <strong>Unidades Vendidas:</strong> {{p.soldUnits}}
+            <strong>Precio: $</strong>{{p.price}}<br>
+            <strong>Stock:</strong> {{p.stock}}
           </div>
-          <!-- Boton Ganancias -->
-          <ion-chip color="primary" mode="ios" outline="true">
-            <ion-label>Ganancia: {{p.price * p.soldUnits | currency: 'CLP '}}</ion-label>
-          </ion-chip>
+          <!-- Rating -->
           <div class="rating">
             <ion-icon name="star" *ngFor="let star of [1,2,3,4,5]" [class.filled]="p.rating >= star"
               (click)="rateProduct(p, star)"></ion-icon>
@@ -33,7 +28,7 @@
       </ion-item>
 
       <!-- Opciones -->
-      <ion-item-options>
+      <ion-item-options *ngIf="user()?.role === 'Admin' || user()?.role === 'Taller'">
         <!-- Editar -->
         <ion-item-option (click)="addUpdateProduct(p)">
           <ion-icon class="option-btn" name="create-outline"></ion-icon>
