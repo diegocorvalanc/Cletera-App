@@ -5,6 +5,8 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateProductComponent } from 'src/app/shared/components/add-update-product/add-update-product.component';
 import { orderBy, where } from 'firebase/firestore';
+import { Router } from '@angular/router';  // Importa Router de '@angular/router'
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -16,6 +18,8 @@ export class HomePage implements OnInit {
 
   products: Product[] = [];
   loading: boolean = false;
+
+  constructor(private router: Router) {}  // Agrega Router al constructor
 
   ngOnInit() {}
 
@@ -40,24 +44,16 @@ export class HomePage implements OnInit {
     }, 1000);
   }
 
-  // Obtener las ganancias
-  getProfits() {
-    return this.products.reduce(
-      (index, product) => index + product.price * product.soldUnits,
-      0
-    );
-  }
-
   // Obtener Productos
   getProducts() {
-    let path = `users/${this.user().uid}/products`;
+    let path = `Producto/`;
 
     this.loading = true;
 
     // QUERY
     let query = [
-      orderBy('soldUnits', 'desc'),
-      // where('soldUnits', '>', 30)
+      orderBy('stock', 'desc'),
+      // where('stock', '>', 30)
     ];
 
     let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
@@ -66,7 +62,7 @@ export class HomePage implements OnInit {
         this.products = res;
 
         this.loading = false;
-        sub.unsubscribe;
+        sub.unsubscribe();
       },
     });
   }
@@ -79,7 +75,7 @@ export class HomePage implements OnInit {
       cssClass: 'add-update-modal',
       componentProps: { product },
     });
-    if (success) this.getProducts;
+    if (success) this.getProducts();
   }
 
   // Confirmar la eliminación del producto
@@ -104,7 +100,7 @@ export class HomePage implements OnInit {
 
   // Eliminar producto
   async deleteProduct(product: Product) {
-    let path = `users/${this.user().uid}/products/${product.id}`;
+    let path = `Producto/${product.id}`;
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
@@ -139,5 +135,10 @@ export class HomePage implements OnInit {
       .finally(() => {
         loading.dismiss();
       });
+  }
+
+  // Nueva función para navegar a la lista de productos
+  navigateToProductList() {
+    this.router.navigate(['/product-list']);
   }
 }

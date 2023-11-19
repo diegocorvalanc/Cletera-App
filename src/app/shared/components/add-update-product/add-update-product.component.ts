@@ -18,7 +18,7 @@ export class AddUpdateProductComponent implements OnInit {
     image: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
     price: new FormControl(null, [Validators.required, Validators.min(0)]),
-    soldUnits: new FormControl(null, [Validators.required, Validators.min(0)]),
+    stock: new FormControl(null, [Validators.required, Validators.min(0)]),
   });
 
   firebaseSvc = inject(FirebaseService);
@@ -47,15 +47,15 @@ export class AddUpdateProductComponent implements OnInit {
 
   // Convierter valores de tipo string a number
   setNumberInputs(){
-    let { soldUnits, price} = this.form.controls;
+    let { stock, price} = this.form.controls;
 
-    if (soldUnits.value) soldUnits.setValue(parseFloat(soldUnits.value));
+    if (stock.value) stock.setValue(parseFloat(stock.value));
     if (price.value) price.setValue(parseFloat(price.value));
   }
 
   // Crear producto
   async createProduct() {
-    let path = `users/${this.user.uid}/products`;
+    let path = `Producto/`;
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
@@ -99,7 +99,7 @@ export class AddUpdateProductComponent implements OnInit {
 
   // Actualizar producto
   async updateProduct() {
-    let path = `users/${this.user.uid}/products/${this.product.id}`;
+    let path = `Producto/${this.product.id}`;
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
