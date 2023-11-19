@@ -46,18 +46,18 @@
       </div>
     </div>
 
-    <!-- Sold units -->
-    <app-custom-input [control]="form.controls.soldUnits"
+    <!-- Stock -->
+    <app-custom-input [control]="form.controls.stock"
     type="number"
-    label="Unidades vendidas"
+    label="Stock actual"
     (ionInput)="setNumberInputs()"
     ></app-custom-input>
-    <!-- Sold units validations  -->
-    <div class="validators" *ngIf="form.controls.soldUnits.errors && form.controls.soldUnits.touched">
-      <div *ngIf="form.controls.soldUnits.errors?.['required']">
+    <!-- Stock validations  -->
+    <div class="validators" *ngIf="form.controls.stock.errors && form.controls.stock.touched">
+      <div *ngIf="form.controls.stock.errors?.['required']">
         Este campo es requerido
       </div>
-      <div *ngIf="form.controls.soldUnits.errors?.['min']">
+      <div *ngIf="form.controls.stock.errors?.['min']">
         La cantidad minima debe ser 0
       </div>
     </div>
