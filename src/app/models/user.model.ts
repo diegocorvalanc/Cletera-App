@@ -5,4 +5,7 @@ export interface User{
     name: string,
     image: string,
     role: string;
+    direccion: string;
+    telefono: string;
+    comuna: string;
 }
