@@ -4,8 +4,9 @@ import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateProductComponent } from 'src/app/shared/components/add-update-product/add-update-product.component';
-import { orderBy, where } from 'firebase/firestore';
-import { Router } from '@angular/router';  // Importa Router de '@angular/router'
+import { orderBy } from 'firebase/firestore';
+import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +20,32 @@ export class HomePage implements OnInit {
   products: Product[] = [];
   loading: boolean = false;
 
-  constructor(private router: Router) {}  // Agrega Router al constructor
+  constructor(
+    private router: Router,
+    private firestore: AngularFirestore
+  ) {}
 
   ngOnInit() {}
 
-  rateProduct(product, rating) {
+  rateProduct(product: Product, rating: number) {
+    // Asignar el rating al producto
     product.rating = rating;
-    // Save the rating to your backend
+
+    // Guardar el rating en Firestore
+    this.saveRatingToFirestore(product.id, rating)
+      .then(() => {
+        console.log('Rating guardado en Firestore');
+      })
+      .catch(error => {
+        console.error('Error al guardar el rating en Firestore:', error);
+        // Puedes manejar el error según tus necesidades
+      });
+  }
+
+  private saveRatingToFirestore(productId: string, rating: number): Promise<void> {
+    // Actualizar el documento en Firestore con el nuevo rating
+    const productRef = this.firestore.collection('Producto').doc(productId);
+    return productRef.update({ rating });
   }
 
   // Datos de usuario
@@ -44,16 +64,13 @@ export class HomePage implements OnInit {
     }, 1000);
   }
 
-  // Obtener Productos
   getProducts() {
     let path = `Producto/`;
 
     this.loading = true;
 
-    // QUERY
     let query = [
       orderBy('stock', 'desc'),
-      // where('stock', '>', 30)
     ];
 
     let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
@@ -67,8 +84,6 @@ export class HomePage implements OnInit {
     });
   }
 
-  // Agregar o actualizar producto
-
   async addUpdateProduct(product?: Product) {
     let success = await this.utilsSvc.presentModal({
       component: AddUpdateProductComponent,
@@ -78,7 +93,6 @@ export class HomePage implements OnInit {
     if (success) this.getProducts();
   }
 
-  // Confirmar la eliminación del producto
   async confirmDeleteProduct(product: Product) {
     this.utilsSvc.presentAlert({
       header: 'Eliminar Producto!',
@@ -98,7 +112,6 @@ export class HomePage implements OnInit {
     });
   }
 
-  // Eliminar producto
   async deleteProduct(product: Product) {
     let path = `Producto/${product.id}`;
 
@@ -137,8 +150,12 @@ export class HomePage implements OnInit {
       });
   }
 
-  // Nueva función para navegar a la lista de productos
   navigateToProductList() {
     this.router.navigate(['/product-list']);
   }
 }
+
+
+
+
+
