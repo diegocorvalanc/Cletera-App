@@ -1,0 +1,27 @@
+ion-card {
+  gap: 100px;
+  padding: 20px 0;
+  border-radius: 15px;
+}
+
+ion-item {
+  background-color: black;
+}
+
+ion-content {
+  --padding-bottom: 70px;
+}
+
+.rating ion-icon {
+  color: #eee;
+}
+
+.rating ion-icon.filled {
+  color: #fbc02d;
+}
+
+ion-content.background {
+  --background: linear-gradient(to right, rgba(173,216,230,0.6), rgba(173,216,230,0.6)), url("/assets/body/pacman.png") 0 0/100% 100% no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
