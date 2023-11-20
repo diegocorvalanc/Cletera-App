@@ -8,6 +8,7 @@ import { orderBy } from 'firebase/firestore';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { CartComponent } from 'src/app/shared/components/cart/cart.component';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -20,11 +21,11 @@ export class HomePage implements OnInit {
 
   products: Product[] = [];
   loading: boolean = false;
-  cartServoce: any;
 
   constructor(
     private router: Router,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private cartService: CartService
   ) {}
 
   ngOnInit() {}
@@ -154,6 +155,8 @@ export class HomePage implements OnInit {
 
   // Carrito de compras
   addToCart(product: Product) {
+    this.cartService.addToCart(product);
+
     this.utilsSvc.presentModal({
       component: CartComponent
     })
@@ -163,8 +166,3 @@ export class HomePage implements OnInit {
     this.router.navigate(['/product-list']);
   }
 }
-
-
-
-
-

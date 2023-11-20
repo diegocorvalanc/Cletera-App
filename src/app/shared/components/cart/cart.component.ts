@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from 'src/app/models/cart.model';
+import { Product } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -15,6 +16,16 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.cart = this.cartService.getCart();
+    this.total = this.cartService.getTotal();
+  }
+
+  removeFromCart(product: Product): void {
+    this.cartService.removeFromCart(product);
+    this.total = this.cartService.getTotal();
+  }
+
+  updateQuantity(product: Product, quantity: number): void {
+    this.cartService.updateQuantity(product, quantity);
     this.total = this.cartService.getTotal();
   }
 }

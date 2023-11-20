@@ -3,13 +3,28 @@ import { Cart } from '../models/cart.model';
 import { Product } from '../models/product.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   private cart: Cart = { products: [] };
 
   addToCart(product: Product) {
-    this.cart.products.push(product);
+    const existingProduct = this.cart.products.find((p) => p.id === product.id);
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      product.quantity = 1;
+      this.cart.products.push(product);
+    }
+  }
+
+  updateQuantity(product: Product, quantity: number): void {
+    const index = this.cart.products.indexOf(product);
+
+    if (index > -1) {
+      this.cart.products[index].quantity = quantity;
+    }
   }
 
   removeFromCart(product: Product) {
@@ -20,7 +35,10 @@ export class CartService {
   }
 
   getTotal(): number {
-    return this.cart.products.reduce((total, product) => total + product.price, 0);
+    return this.cart.products.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0
+    );
   }
 
   getCart(): Cart {

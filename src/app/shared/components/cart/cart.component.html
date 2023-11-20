@@ -1,18 +1,20 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Carrito de Compras</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [isModal]="true" title="Carrito"></app-header>
 
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let product of cart.products">
+      <img [src]="product.image" alt="{{ product.name }}" style="width: 100px; height: 100px;">
       <ion-label>
         <h2>{{product.name}}</h2>
-        <p>{{product.price}}</p>
+        <p>${{product.price}}</p>
+        <ion-input type="number" [(ngModel)]="product.quantity" (ngModelChange)="updateQuantity(product, $event)"></ion-input>
       </ion-label>
-      <ion-button color="danger" >Eliminar</ion-button>
+      <ion-button color="danger" (click)="removeFromCart(product)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
-  <p>Total: {{total}}</p>
+  <!-- footer -->
+  <div class="footer">
+    <p>Total: {{total}}</p>
+    <ion-button>Pagar</ion-button>
+  </div>
 </ion-content>
