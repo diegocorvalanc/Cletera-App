@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { Product } from 'src/app/models/product.model';
 import { User } from 'src/app/models/user.model';
 import { UtilsService } from 'src/app/services/utils.service';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +17,8 @@ export class HeaderComponent  implements OnInit {
   @Input() isModal!: boolean;
   @Input() showMenu!: boolean;
 
+  products: Product[] = [];
+
   utilsSvc = inject(UtilsService);
    // Datos de usuario
   user(): User{
@@ -22,6 +26,13 @@ export class HeaderComponent  implements OnInit {
   }
 
   ngOnInit() {}
+
+    // // Carrito de compras
+    // addToCart(product: Product) {
+    //   this.utilsSvc.presentModal({
+    //     component: CartComponent
+    //   })
+    // }
 
   dismissModal(){
     this.utilsSvc.dismissModal();

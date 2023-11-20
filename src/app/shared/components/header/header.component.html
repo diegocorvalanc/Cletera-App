@@ -17,6 +17,12 @@
       <strong>{{title}}</strong>
       <div class="admin">{{user()?.role}}</div>
     </ion-title>
-
+    <ion-buttons slot="end">
+      <!-- {{p.direccion concat p.comuna}} -->
+      <ion-label>Maipú</ion-label>
+      <ion-button routerLink="/cart">
+        <ion-icon slot="icon-only" name="cart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>

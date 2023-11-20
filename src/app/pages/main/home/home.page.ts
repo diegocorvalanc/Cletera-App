@@ -7,6 +7,7 @@ import { AddUpdateProductComponent } from 'src/app/shared/components/add-update-
 import { orderBy } from 'firebase/firestore';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { CartComponent } from 'src/app/shared/components/cart/cart.component';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomePage implements OnInit {
 
   products: Product[] = [];
   loading: boolean = false;
+  cartService: any;
 
   constructor(
     private router: Router,
@@ -150,9 +152,18 @@ export class HomePage implements OnInit {
       });
   }
 
+  // Carrito de compras
+  addToCart(product: Product) {
+    this.utilsSvc.presentModal({
+      component: CartComponent
+    })
+  }
+
+  // Nueva función para navegar a la lista de productos
   navigateToProductList() {
     this.router.navigate(['/product-list']);
   }
+
 }
 
 
