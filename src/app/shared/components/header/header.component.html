@@ -18,5 +18,9 @@
       <div class="admin">{{user()?.role}}</div>
     </ion-title>
 
+    <ion-buttons slot="end" *ngIf="showMenu">
+      <ion-label>{{user()?.direccion}}, {{user()?.comuna}}</ion-label>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
