@@ -2,39 +2,57 @@
 
 <ion-content>
   <form>
-    <ion-item>
-      <ion-label>name</ion-label>
-      <ion-input type="text" placeholder="Ingrese su nombre de usuario"></ion-input>
-    </ion-item>
+    <app-custom-input
+      autocomplete="name"
+      icon="person-outline"
+      [control]="form.controls.name"
+      type="name"
+      label="Nombre Usuario"
+    ></app-custom-input>
 
-    <ion-item>
-      <ion-label>email</ion-label>
-      <ion-input type="email" placeholder="Ingrese su correo electrónico"></ion-input>
-    </ion-item>
+    <app-custom-input
+      autocomplete="email"
+      icon="mail-outline"
+      [control]="form.controls.name"
+      type="email"
+      label="Correo"
+    ></app-custom-input>
 
-    <ion-item>
-      <ion-label >password</ion-label>
-      <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Ingrese su contraseña"></ion-input>
-      <ion-button slot="end" fill="clear" (click)="togglePasswordVisibility()">
-        <ion-icon :name="showPassword ? 'eye-off' : 'eye'"></ion-icon>
-      </ion-button>
-    </ion-item>
+    <app-custom-input
+      autocomplete="password"
+      icon="lock-closed-outline"
+      [control]="form.controls.password"
+      type="password"
+      label="Contraseña"
+    ></app-custom-input>
 
-    <ion-item>
-      <ion-label>Teléfono</ion-label>
-      <ion-input type="tel" placeholder="Ingrese su número de teléfono"></ion-input>
-    </ion-item>
+    <app-custom-input
+      autocomplete="telefono"
+      icon="call-outline"
+      [control]="form.controls.telefono"
+      type="telefono"
+      label="telefono"
+    ></app-custom-input>
 
-    <ion-item>
-      <ion-label>Dirección</ion-label>
-      <ion-input type="text" placeholder="Ingrese su dirección"></ion-input>
-    </ion-item>
+    <app-custom-input
+      autocomplete="direccion"
+      icon="storefront-outline"
+      [control]="form.controls.direccion"
+      type="direccion"
+      label="direccion"
+    ></app-custom-input>
 
-    <ion-item>
-      <ion-label>Comuna</ion-label>
-      <ion-input type="text" placeholder="Ingrese su comuna"></ion-input>
-    </ion-item>
+    <app-custom-input
+      autocomplete="comuna"
+      icon="earth-outline"
+      [control]="form.controls.comuna"
+      type="comuna"
+      label="Comuna"
+    ></app-custom-input>
 
-    <ion-button expand="full" type="submit">Guardar cambios</ion-button>
-
+    <ion-button expand="block" mode="ios" class="submit" type="submit">
+      Guardar cambios
+      <ion-icon slot="end" name="log-in-outline"></ion-icon>
+    </ion-button>
   </form>
+</ion-content>
