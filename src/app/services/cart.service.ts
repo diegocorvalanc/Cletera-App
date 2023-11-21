@@ -20,10 +20,18 @@ export class CartService {
   }
 
   updateQuantity(product: Product, quantity: number): void {
-    const index = this.cart.products.indexOf(product);
+    const existingProduct = this.cart.products.find((p) => p.id === product.id);
 
-    if (index > -1) {
-      this.cart.products[index].quantity = quantity;
+    if (existingProduct) {
+      if (quantity < 1) {
+        alert('La cantidad no puede ser menor a 1.');
+        existingProduct.quantity = 1; // Establecer la cantidad a 1 si es menor a 1
+      } else if (quantity > product.stock) {
+        alert('No puedes agregar más de este producto. Stock insuficiente.');
+        existingProduct.quantity = product.stock; // Revertir a la cantidad anterior
+      } else {
+        existingProduct.quantity = quantity;
+      }
     }
   }
 

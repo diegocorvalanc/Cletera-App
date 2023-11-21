@@ -136,3 +136,10 @@ ion-button {
     padding-top: 2px;
     padding-bottom: 2px;
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+    max-width: 2000px;
+    width: 100%;
+  }

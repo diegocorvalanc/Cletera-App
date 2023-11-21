@@ -1,7 +1,7 @@
 <app-header [showMenu]="true" title="Inicio"></app-header>
 
 <ion-content class="background">
-
+  <div class="container">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -72,5 +72,5 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
+</div>
 </ion-content>

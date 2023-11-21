@@ -7,14 +7,15 @@
       <ion-label>
         <h2>{{product.name}}</h2>
         <p>${{product.price}}</p>
-        <ion-input type="number" [(ngModel)]="product.quantity" (ngModelChange)="updateQuantity(product, $event)"></ion-input>
+        <ion-input type="number" [(ngModel)]="product.quantity" (ngModelChange)="updateQuantity(product, $event)"
+          [min]="1" [max]="product.stock"></ion-input>
       </ion-label>
-      <ion-button color="danger" (click)="removeFromCart(product)">Eliminar</ion-button>
+      <ion-button color="danger" slot ="end" (click)="removeFromCart(product)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
   <!-- footer -->
   <div class="footer">
-    <p>Total: {{total}}</p>
+    <p>Total: ${{total}}</p>
     <ion-button>Pagar</ion-button>
   </div>
 </ion-content>
