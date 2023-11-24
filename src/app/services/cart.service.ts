@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Cart } from '../models/cart.model';
 import { Product } from '../models/product.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private cart: Cart = { products: [] };
+
+  constructor(private http: HttpClient) {}
 
   addToCart(product: Product) {
     const existingProduct = this.cart.products.find((p) => p.id === product.id);
@@ -47,6 +50,30 @@ export class CartService {
       (total, product) => total + product.price * product.quantity,
       0
     );
+  }
+
+  getOrderId(): string {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  getSessionId(): string {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  getReturnUrl(): string {
+    return window.location.origin + '/order';
+  }
+
+  async getToken(): Promise<string> {
+    const url = 'http://localhost:4000/generar_token';
+    const body = {
+      orderId: this.getOrderId(),
+      sessionId: this.getSessionId(),
+      amount: this.getTotal(),
+      returnUrl: this.getReturnUrl(),
+    };
+    const response = await this.http.post<any>(url, body).toPromise();
+    return response.token;
   }
 
   getCart(): Cart {

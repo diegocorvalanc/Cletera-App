@@ -10,12 +10,16 @@
         <ion-input type="number" [(ngModel)]="product.quantity" (ngModelChange)="updateQuantity(product, $event)"
           [min]="1" [max]="product.stock"></ion-input>
       </ion-label>
-      <ion-button color="danger" slot ="end" (click)="removeFromCart(product)">Eliminar</ion-button>
+      <ion-button color="danger" slot="end" (click)="removeFromCart(product)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
+
   <!-- footer -->
   <div class="footer">
     <p>Total: ${{total}}</p>
-    <ion-button>Pagar</ion-button>
+    <form ngNoForm action="https://webpay3gint.transbank.cl/webpayserver/initTransaction" method="POST">
+      <input type="hidden" name="token_ws" value="{{token}}" />
+      <input type="submit" value="Pagar" />
+    </form>
   </div>
 </ion-content>
