@@ -61,7 +61,7 @@ export class CartService {
   }
 
   getReturnUrl(): string {
-    return window.location.origin + '/order';
+    return window.location.origin + '/main/commit';
   }
 
   async getToken(): Promise<string> {

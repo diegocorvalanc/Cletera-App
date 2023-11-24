@@ -32,6 +32,11 @@ const routes: Routes = [
             (m) => m.Informa2PageModule
           ),
       },
+      {
+        path: 'commit',
+        loadChildren: () =>
+          import('./commit/commit.module').then((m) => m.CommitPageModule),
+      },
     ],
   },
 ];
