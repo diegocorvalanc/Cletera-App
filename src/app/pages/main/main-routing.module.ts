@@ -21,7 +21,16 @@ const routes: Routes = [
       {
         path: 'nosotros',
         loadChildren: () =>
-          import('./nosotros/nosotros.module').then((m) => m.NosotrosPageModule),
+          import('./nosotros/nosotros.module').then(
+            (m) => m.NosotrosPageModule
+          ),
+      },
+      {
+        path: 'informa2',
+        loadChildren: () =>
+          import('./informa2/informa2.module').then(
+            (m) => m.Informa2PageModule
+          ),
       },
     ],
   },

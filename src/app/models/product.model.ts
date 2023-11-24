@@ -6,4 +6,5 @@ export interface Product {
   stock: number;
   rating: number;
   quantity: number;
+  tname: string; // Nombre de la tienda
 }

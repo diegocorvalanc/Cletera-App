@@ -19,6 +19,7 @@ export class AddUpdateProductComponent implements OnInit {
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
     price: new FormControl(null, [Validators.required, Validators.min(0)]),
     stock: new FormControl(null, [Validators.required, Validators.min(0)]),
+    tname: new FormControl('', [Validators.minLength(4)]),
   });
 
   firebaseSvc = inject(FirebaseService);
@@ -40,14 +41,16 @@ export class AddUpdateProductComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
+      this.form.controls.tname.setValue(this.user.name);
+
       if (this.product) this.updateProduct();
       else this.createProduct();
     }
   }
 
   // Convierter valores de tipo string a number
-  setNumberInputs(){
-    let { stock, price} = this.form.controls;
+  setNumberInputs() {
+    let { stock, price } = this.form.controls;
 
     if (stock.value) stock.setValue(parseFloat(stock.value));
     if (price.value) price.setValue(parseFloat(price.value));
@@ -105,13 +108,12 @@ export class AddUpdateProductComponent implements OnInit {
     await loading.present();
 
     // Si cambió la imagen, subir la nueva y obtener la url
-    if (this.form.value.image !== this.product.image){
+    if (this.form.value.image !== this.product.image) {
       let dataUrl = this.form.value.image;
       let imagePath = await this.firebaseSvc.getFilePath(this.product.image);
       let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
       this.form.controls.image.setValue(imageUrl);
     }
-
 
     delete this.form.value.id;
 
