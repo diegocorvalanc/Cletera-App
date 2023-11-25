@@ -11,8 +11,11 @@
     <ion-icon name="camera-outline"></ion-icon>
   </ion-button>
 
-  <h2>{{user().name}}</h2>
-  <div>{{user().role}}</div>
+  <h2>Nombre usuario: {{user().name}}</h2>
+  <div>Rol Usuario: {{user().role}}</div>
+  <div>Correo Usuario: {{user().email}}</div>
+  <div>Dirección usuario: {{user().direccion}}</div>
+  <div>Comuna Usuario: {{user().comuna}}</div>
 
 
     <ion-item routerLink="edit-profile" button detail>
