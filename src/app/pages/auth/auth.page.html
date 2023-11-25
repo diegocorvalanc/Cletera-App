@@ -2,26 +2,13 @@
 
 <ion-content>
   <div class="d-flex-center">
-    <form
-      [formGroup]="form"
-      class="auth-form"
-      (ngSubmit)="submit()"
-      (keypress.enter)="submit()"
-    >
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
       <app-logo></app-logo>
       <!--Input de correo-->
-      <app-custom-input
-        autocomplete="email"
-        icon="mail-outline"
-        [control]="form.controls.email"
-        type="email"
-        label="Correo"
-      ></app-custom-input>
+      <app-custom-input autocomplete="email" icon="mail-outline" [control]="form.controls.email" type="email"
+        label="Correo"></app-custom-input>
       <!--Validacion correo-->
-      <div
-        class="validators"
-        *ngIf="form.controls.email.errors && form.controls.email.touched"
-      >
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
         <div *ngIf="form.controls.email.errors?.['required']">
           El correo es requerido
         </div>
@@ -31,17 +18,10 @@
       </div>
 
       <!--Input de Contraseña-->
-      <app-custom-input
-        [control]="form.controls.password"
-        type="password"
-        label="Contraseña"
-        icon="lock-closed-outline"
-      ></app-custom-input>
+      <app-custom-input [control]="form.controls.password" type="password" label="Contraseña"
+        icon="lock-closed-outline"></app-custom-input>
       <!--Validación contraseña-->
-      <div
-        class="validators"
-        *ngIf="form.controls.password.errors && form.controls.password.touched"
-      >
+      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
         <div *ngIf="form.controls.password.errors?.['required']">
           La contraseña es requerida
         </div>
@@ -51,25 +31,18 @@
         ¿Olvidaste tu contraseña?
       </p>
 
-      <ion-button
-        expand="block"
-        mode="ios"
-        class="submit"
-        type="submit"
-        [disabled]="form.invalid"
-      >
+      <ion-button expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
         Ingresar
         <ion-icon slot="end" name="log-in-outline"></ion-icon>
       </ion-button>
 
-      <ion-button
-        class="ion-margin-top"
-        routerLink="sign-up"
-        expand="block"
-        mode="ios"
-        fill="outline"
-      >
+      <ion-button class="ion-margin-top" routerLink="sign-up" expand="block" mode="ios" fill="outline">
         Registrate
+        <ion-icon slot="end" name="person-add-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button class="ion-margin-top" routerLink="sign-up-taller" expand="block" mode="ios" fill="outline">
+        Registrate como taller
         <ion-icon slot="end" name="person-add-outline"></ion-icon>
       </ion-button>
     </form>

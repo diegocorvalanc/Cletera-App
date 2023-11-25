@@ -41,7 +41,7 @@ export class AddUpdateProductComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      this.form.controls.tname.setValue(this.user.name);
+      this.form.controls.tname.setValue(this.user.tname);
 
       if (this.product) this.updateProduct();
       else this.createProduct();
