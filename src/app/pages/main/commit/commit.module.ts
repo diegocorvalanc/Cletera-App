@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CommitPageRoutingModule } from './commit-routing.module';
 
 import { CommitPage } from './commit.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CommitPageRoutingModule
+    CommitPageRoutingModule,
+    SharedModule,
   ],
-  declarations: [CommitPage]
+  declarations: [CommitPage],
 })
 export class CommitPageModule {}

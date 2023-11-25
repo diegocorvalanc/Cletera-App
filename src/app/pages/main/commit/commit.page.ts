@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-commit',
@@ -7,12 +10,35 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./commit.page.scss'],
 })
 export class CommitPage implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  firebaseSvc = inject(FirebaseService);
+  utilsSvc = inject(UtilsService);
+  orderId: string;
+  sessionId: string;
+  amount: number;
+
+  constructor(
+    private route: ActivatedRoute,
+    private cartService: CartService
+  ) {}
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe((params) => {
-      console.log(params); // log the entire params object
-      console.log(params.get('ws_token'));
+    let data = {};
+    this.route.queryParamMap.subscribe(async (queryParams) => {
+      data['queryParams'] = queryParams.keys.reduce((obj, key) => {
+        obj[key] = queryParams.get(key);
+        return obj;
+      }, {});
+
+      // Obtener datos de la orden de compra
+      const paymentDetails = this.cartService.getPaymentDetails();
+      this.orderId = paymentDetails.orderId;
+      this.sessionId = paymentDetails.sessionId;
+      this.amount = paymentDetails.amount;
+
+      data['paymentDetails'] = paymentDetails;
+
+      // Almacenar `data` de la manera que prefieras
+      console.log(data); // Por ahora, solo lo estamos registrando en la consola
     });
   }
 

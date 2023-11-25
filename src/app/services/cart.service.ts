@@ -79,4 +79,13 @@ export class CartService {
   getCart(): Cart {
     return this.cart;
   }
+
+  getPaymentDetails() {
+    return {
+      orderId: this.getOrderId(),
+      sessionId: this.getSessionId(),
+      amount: this.getTotal(),
+      returnUrl: this.getReturnUrl(),
+    };
+  }
 }

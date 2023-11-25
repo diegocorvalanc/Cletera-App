@@ -1,0 +1,13 @@
+.center-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.centered-card {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}

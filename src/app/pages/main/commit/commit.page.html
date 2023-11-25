@@ -1,13 +1,30 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>commit</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [showMenu]="true" title="Comprobante"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">commit</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="center-content">
+
+    <ion-card class="centered-card">
+      <ion-card-header>
+        <ion-card-title>Detalles del Pago</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Orden de Compra:</ion-label>
+          <ion-text>{{ orderId }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Sesion ID:</ion-label>
+          <ion-text>{{ sessionId }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Monto Total:</ion-label>
+          <ion-text>{{ amount }}</ion-text>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button size="small" expand="full" class="ion-align-center" routerLink="/main/home">Volver al
+      Home</ion-button>
+  </div>
 </ion-content>
