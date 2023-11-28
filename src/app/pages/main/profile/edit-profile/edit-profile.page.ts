@@ -14,10 +14,12 @@ export class EditProfilePage implements OnInit {
 
   form = new FormGroup({
     name: new FormControl(''),
-    email: new FormControl('', [Validators.email]),
     password: new FormControl('', [Validators.min(0)]),
     direccion: new FormControl(''),
-    telefono: new FormControl('', [Validators.pattern(/^[0-9]*$/), Validators.maxLength(8)]),
+    telefono: new FormControl('', [
+      Validators.pattern(/^[0-9]*$/),
+      Validators.maxLength(8),
+    ]),
     comuna: new FormControl(''),
   });
 
@@ -35,7 +37,6 @@ export class EditProfilePage implements OnInit {
     if (this.user) {
       this.form.patchValue({
         name: this.user.name || '',
-        email: this.user.email || '',
         direccion: this.user.direccion || '',
         telefono: this.user.telefono || '+569',
         comuna: this.user.comuna || '',
@@ -55,13 +56,15 @@ export class EditProfilePage implements OnInit {
 
       const uid = user.uid;
 
-      const { name, email, direccion, telefono, comuna } = this.form.value;
+      const { name, direccion, telefono, comuna } = this.form.value;
 
       // Obtener los datos actuales del usuario
-      const currentUserData = await this.firebaseSvc.getDocument(`users/${uid}`);
+      const currentUserData = await this.firebaseSvc.getDocument(
+        `users/${uid}`
+      );
 
       // Verificar si al menos un campo está completo
-      if (!name && !email && !direccion && !telefono && !comuna) {
+      if (!name && !direccion && !telefono && !comuna) {
         console.error('Por favor, complete al menos un campo.');
         return;
       }
@@ -78,19 +81,12 @@ export class EditProfilePage implements OnInit {
         return;
       }
 
-      // Validar el correo electrónico
-      if (email && !this.isValidEmail(email)) {
-        console.error('Formato de correo electrónico no válido.');
-        return;
-      }
-
       // Función auxiliar para obtener propiedades dinámicamente
       const getPropertyValue = (property: string) => currentUserData[property];
 
       // Actualizar datos en la base de datos
       await this.firebaseSvc.updateDocument(`users/${uid}`, {
         name: name || getPropertyValue('name'),
-        email: email || getPropertyValue('email'),
         direccion: direccion || getPropertyValue('direccion'),
         telefono: telefono || getPropertyValue('telefono'),
         comuna: comuna || getPropertyValue('comuna'),
@@ -119,11 +115,5 @@ export class EditProfilePage implements OnInit {
         icon: 'alert-circle-outline',
       });
     }
-  }
-
-  // Función para validar el formato del correo electrónico
-  private isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
   }
 }

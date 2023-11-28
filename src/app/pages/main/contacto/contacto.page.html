@@ -2,50 +2,29 @@
 
 <ion-content>
   <form>
-  <app-custom-input
-  autocomplete="name"
-  icon="person-outline"
-  [control]="form.controls.name"
-  type="text"
-  label="Nombre Usuario"
-></app-custom-input>
+    <app-custom-input autocomplete="name" icon="person-outline" [control]="form.controls.name" type="text"
+      label="Nombre Usuario"></app-custom-input>
 
-<app-custom-input
-  autocomplete="email"
-  icon="mail-outline"
-  [control]="form.controls.email"
-  type="email"
-  label="Correo"
-></app-custom-input>
+    <app-custom-input autocomplete="email" icon="mail-outline" [control]="form.controls.email" type="email"
+      label="Correo"></app-custom-input>
 
-<app-custom-input
-  autocomplete="telefono"
-  icon="call-outline"
-  [control]="form.controls.telefono"
-  type="tel"
-  label="Teléfono"
-  prefix="+569"
-></app-custom-input>
+    <app-custom-input autocomplete="telefono" icon="call-outline" [control]="form.controls.telefono" type="tel"
+      label="Teléfono" prefix="+569"></app-custom-input>
 
-<app-custom-input
-  autocomplete="Mensaje"
-  icon="chatbox-ellipses-outline"
-  [control]="form.controls.mensaje"
-  type="text"
-  label="mensaje"
-></app-custom-input>
+    <app-custom-input autocomplete="Mensaje" icon="chatbox-ellipses-outline" [control]="form.controls.mensaje"
+      type="text" label="Mensaje"></app-custom-input>
 
-<ion-item>
-  <ion-label>Options</ion-label>
-  <ion-select interface="action-sheet">
-    <ion-select-option *ngFor="let option of options" [value]="option.value">{{option.label}}</ion-select-option>
-  </ion-select>
-</ion-item>
+    <ion-item>
+      <ion-label>Options</ion-label>
+      <ion-select interface="action-sheet">
+        <ion-select-option *ngFor="let option of options" [value]="option.value">{{option.label}}</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-<ion-button expand="block" mode="ios" class="submit" type="submit">
-  Guardar cambios
-  <ion-icon slot="end" name="log-in-outline"></ion-icon>
-</ion-button>
+    <ion-button expand="block" mode="ios" class="submit" type="submit">
+      Guardar cambios
+      <ion-icon slot="end" name="log-in-outline"></ion-icon>
+    </ion-button>
 
-</form>
+  </form>
 </ion-content>

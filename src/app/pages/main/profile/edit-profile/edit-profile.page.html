@@ -2,46 +2,17 @@
 
 <ion-content>
   <form (ngSubmit)="updateProfile()" [formGroup]="form">
-    <app-custom-input
-      autocomplete="name"
-      icon="person-outline"
-      [control]="form.controls.name"
-      type="text"
-      label="Nombre Usuario"
-    ></app-custom-input>
+    <app-custom-input autocomplete="name" icon="person-outline" [control]="form.controls.name" type="text"
+      label="Nombre Usuario"></app-custom-input>
 
-    <app-custom-input
-      autocomplete="email"
-      icon="mail-outline"
-      [control]="form.controls.email"
-      type="email"
-      label="Correo"
-    ></app-custom-input>
+    <app-custom-input autocomplete="telefono" icon="call-outline" [control]="form.controls.telefono" type="tel"
+      label="Teléfono" prefix="+569"></app-custom-input>
 
-    <app-custom-input
-      autocomplete="telefono"
-      icon="call-outline"
-      [control]="form.controls.telefono"
-      type="tel"
-      label="Teléfono"
-      prefix="+569"
-    ></app-custom-input>
+    <app-custom-input autocomplete="direccion" icon="storefront-outline" [control]="form.controls.direccion" type="text"
+      label="Dirección"></app-custom-input>
 
-    <app-custom-input
-      autocomplete="direccion"
-      icon="storefront-outline"
-      [control]="form.controls.direccion"
-      type="text"
-      label="Dirección"
-    ></app-custom-input>
-
-    <app-custom-input
-      autocomplete="comuna"
-      icon="earth-outline"
-      [control]="form.controls.comuna"
-      type="text"
-      label="Comuna"
-    ></app-custom-input>
+    <app-custom-input autocomplete="comuna" icon="earth-outline" [control]="form.controls.comuna" type="text"
+      label="Comuna"></app-custom-input>
 
     <ion-button expand="block" mode="ios" class="submit" type="submit">
       Guardar cambios
