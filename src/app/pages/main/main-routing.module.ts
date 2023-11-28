@@ -37,8 +37,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('./commit/commit.module').then((m) => m.CommitPageModule),
       },
+      {
+        path: 'contacto',
+        loadChildren: () => import('./contacto/contacto.module').then( m => m.ContactoPageModule)
+      },
     ],
   },
+
+
 ];
 
 @NgModule({
