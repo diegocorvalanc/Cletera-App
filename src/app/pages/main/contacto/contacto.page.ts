@@ -16,16 +16,18 @@ export class ContactoPage implements OnInit {
   options: any[];
 
   form = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl('', [Validators.email]),
-    telefono: new FormControl('', [Validators.pattern(/^[0-9]*$/), Validators.maxLength(8)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    telefono: new FormControl('', [
+      Validators.pattern(/^[0-9]*$/),
+      Validators.maxLength(8),
+    ]),
     mensaje: new FormControl(''),
     tname: new FormControl(''),
   });
 
   firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService);
-
 
   ngOnInit() {
     this.getOptions();
