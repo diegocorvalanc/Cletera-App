@@ -21,8 +21,6 @@ export class UtilsService {
   router = inject(Router);
   alertCtrl = inject(AlertController);
 
-
-
   // Camara
   async takePicture(promptLabelHeader: string) {
     return await Camera.getPhoto({
@@ -64,7 +62,7 @@ export class UtilsService {
     return localStorage.setItem(key, JSON.stringify(value));
   }
 
-  //obtiene elemento del localstorage
+  // obtiene elemento del localstorage
   getFromLocalStorage(key: string) {
     return JSON.parse(localStorage.getItem(key));
   }

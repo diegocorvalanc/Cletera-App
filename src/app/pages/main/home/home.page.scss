@@ -21,7 +21,16 @@ ion-content {
 }
 
 ion-content.background {
-  --background: linear-gradient(to right, rgba(173,216,230,0.6), rgba(173,216,230,0.6)), url("/assets/body/pacman.png") 0 0/100% 100% no-repeat;
+  --background: linear-gradient(
+      to right,
+      rgba(173, 216, 230, 0.6),
+      rgba(173, 216, 230, 0.6)
+    ),
+    url("/assets/body/pacman.png") 0 0/100% 100% no-repeat;
   background-size: cover;
   background-blend-mode: multiply;
+}
+
+.custom-fab {
+  margin-right: 20px;
 }

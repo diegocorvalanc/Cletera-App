@@ -39,13 +39,16 @@ export class HomePage implements OnInit {
       .then(() => {
         console.log('Rating guardado en Firestore');
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error al guardar el rating en Firestore:', error);
         // Puedes manejar el error según tus necesidades
       });
   }
 
-  private saveRatingToFirestore(productId: string, rating: number): Promise<void> {
+  private saveRatingToFirestore(
+    productId: string,
+    rating: number
+  ): Promise<void> {
     // Actualizar el documento en Firestore con el nuevo rating
     const productRef = this.firestore.collection('Producto').doc(productId);
     return productRef.update({ rating });
@@ -72,9 +75,7 @@ export class HomePage implements OnInit {
 
     this.loading = true;
 
-    let query = [
-      orderBy('stock', 'desc'),
-    ];
+    let query = [orderBy('stock', 'desc')];
 
     let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
       next: (res: any) => {
@@ -116,41 +117,57 @@ export class HomePage implements OnInit {
   }
 
   async deleteProduct(product: Product) {
-    let path = `Producto/${product.id}`;
+    // Obtén el usuario actual
+    const currentUser = this.user();
 
-    const loading = await this.utilsSvc.loading();
-    await loading.present();
+    if (
+      currentUser.name === product.creatorUid ||
+      currentUser.role === 'Admin'
+    ) {
+      let path = `Producto/${product.id}`;
 
-    let imagePath = await this.firebaseSvc.getFilePath(product.image);
-    await this.firebaseSvc.deleteFile(imagePath);
+      const loading = await this.utilsSvc.loading();
+      await loading.present();
 
-    this.firebaseSvc
-      .deleteDocument(path)
-      .then(async (res) => {
-        this.products = this.products.filter((p) => p.id !== product.id);
+      let imagePath = await this.firebaseSvc.getFilePath(product.image);
+      await this.firebaseSvc.deleteFile(imagePath);
 
-        this.utilsSvc.presentToast({
-          message: 'Producto eliminado exitosamente',
-          duration: 1500,
-          color: 'success',
-          position: 'middle',
-          icon: 'checkmark-circle-outline',
+      this.firebaseSvc
+        .deleteDocument(path)
+        .then(async (res) => {
+          this.products = this.products.filter((p) => p.id !== product.id);
+
+          this.utilsSvc.presentToast({
+            message: 'Producto eliminado exitosamente',
+            duration: 1500,
+            color: 'success',
+            position: 'middle',
+            icon: 'checkmark-circle-outline',
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+
+          this.utilsSvc.presentToast({
+            message: error.message,
+            duration: 2500,
+            color: 'primary',
+            position: 'middle',
+            icon: 'alert-circle-outline',
+          });
+        })
+        .finally(() => {
+          loading.dismiss();
         });
-      })
-      .catch((error) => {
-        console.log(error);
-
-        this.utilsSvc.presentToast({
-          message: error.message,
-          duration: 2500,
-          color: 'primary',
-          position: 'middle',
-          icon: 'alert-circle-outline',
-        });
-      })
-      .finally(() => {
-        loading.dismiss();
+    } else {
+      this.utilsSvc.presentToast({
+        message: 'No tienes permiso para eliminar este producto.',
+        duration: 2500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'alert-circle-outline',
       });
+    }
   }
 
   // Carrito de compras
@@ -158,8 +175,8 @@ export class HomePage implements OnInit {
     this.cartService.addToCart(product);
 
     this.utilsSvc.presentModal({
-      component: CartComponent
-    })
+      component: CartComponent,
+    });
   }
 
   navigateToProductList() {

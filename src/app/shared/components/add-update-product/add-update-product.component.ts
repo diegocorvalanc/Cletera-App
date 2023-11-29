@@ -20,6 +20,7 @@ export class AddUpdateProductComponent implements OnInit {
     price: new FormControl(null, [Validators.required, Validators.min(0)]),
     stock: new FormControl(null, [Validators.required, Validators.min(0)]),
     tname: new FormControl('', [Validators.minLength(4)]),
+    creatorUid: new FormControl(''),
   });
 
   firebaseSvc = inject(FirebaseService);
@@ -68,6 +69,9 @@ export class AddUpdateProductComponent implements OnInit {
     let imagePath = `${this.user.uid}/${Date.now()}`;
     let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
     this.form.controls.image.setValue(imageUrl);
+
+    // Agregar el uid del creador
+    this.form.controls['creatorUid'].setValue(this.user.name);
 
     delete this.form.value.id;
 

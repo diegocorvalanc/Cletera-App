@@ -7,4 +7,5 @@ export interface Product {
   rating: number;
   quantity: number;
   tname: string; // Nombre de la tienda
+  creatorUid: string; // UID del creador del producto
 }
