@@ -27,8 +27,9 @@ export class CartComponent implements OnInit {
     this.total = this.cartService.getTotal();
   }
 
-  updateQuantity(product: Product, quantity: number): void {
+  async updateQuantity(product: Product, quantity: number): Promise<void> {
     this.cartService.updateQuantity(product, quantity);
     this.total = this.cartService.getTotal();
+    this.token = await this.cartService.getToken();
   }
 }
