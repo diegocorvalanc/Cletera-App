@@ -4,5 +4,6 @@ export interface Contacto{
     email: string,
     telefono: string;
     mensaje: string;
-    tname: string;
+    option: string;
+
 }

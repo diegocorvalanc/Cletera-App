@@ -30,6 +30,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from 'firebase/storage';
+import { Contacto } from '../models/contacto.model'; // Asegúrate de importar el modelo Contacto
 
 @Injectable({
   providedIn: 'root',
@@ -76,9 +77,9 @@ export class FirebaseService {
 
   getCollectionData(path: string, collectionQuery?: any) {
     const ref = collection(getFirestore(), path);
-
     return collectionData(query(ref, ...collectionQuery), { idField: 'id' });
   }
+
   // Setear documento
   setDocument(path: string, data: any) {
     return setDoc(doc(getFirestore(), path), data);
@@ -98,6 +99,7 @@ export class FirebaseService {
   async getDocument(path: string) {
     return (await getDoc(doc(getFirestore(), path))).data();
   }
+
   //================ Agregar un documento ===========
   addDocument(path: string, data: any) {
     return addDoc(collection(getFirestore(), path), data);
@@ -113,7 +115,8 @@ export class FirebaseService {
       }
     );
   }
-  // Obtener ruta de la imagen con su url
+
+  // Obtener ruta de la imagen con su URL
   async getFilePath(url: string) {
     return ref(getStorage(), url).fullPath;
   }
@@ -123,9 +126,12 @@ export class FirebaseService {
     return deleteObject(ref(getStorage(), path));
   }
 
+  //================ Agregar un contacto ===========
+  async addContacto(contactoData: Contacto) {
+    return addDoc(collection(getFirestore(), 'Contacto'), contactoData);
+  }
 
   //================ actualizar perfil ===========
-
 
 
 }

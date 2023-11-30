@@ -1,9 +1,9 @@
 <app-header [showMenu]="true" title="Contactenos"></app-header>
 
 <ion-content>
-  <form>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
     <app-custom-input autocomplete="name" icon="person-outline" [control]="form.controls.name" type="text"
-      label="Nombre Usuario"></app-custom-input>
+      label="Nombre Usuario">{{ user?.name }}</app-custom-input>
 
     <app-custom-input autocomplete="email" icon="mail-outline" [control]="form.controls.email" type="email"
       label="Correo"></app-custom-input>
@@ -15,14 +15,19 @@
       type="text" label="Mensaje"></app-custom-input>
 
     <ion-item>
-      <ion-label>Options</ion-label>
-      <ion-select interface="action-sheet">
-        <ion-select-option *ngFor="let option of options" [value]="option.value">{{option.label}}</ion-select-option>
+      <ion-label>Categoria</ion-label>
+      <ion-select interface="action-sheet" formControlName="option">
+        <ion-select-option *ngFor="let option of options" [value]="option">{{ option }}</ion-select-option>
       </ion-select>
     </ion-item>
 
+    <ion-item *ngIf="form.get('option').value === '(Otros servicios)'">
+      <ion-label>Por favor, especifique:</ion-label>
+      <ion-input formControlName="otroRecomendacion" type="text"></ion-input>
+    </ion-item>
+
     <ion-button expand="block" mode="ios" class="submit" type="submit">
-      Guardar cambios
+      Enviar Formulario
       <ion-icon slot="end" name="log-in-outline"></ion-icon>
     </ion-button>
 
