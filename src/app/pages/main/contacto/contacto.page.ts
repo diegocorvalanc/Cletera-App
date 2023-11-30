@@ -55,7 +55,6 @@ export class ContactoPage implements OnInit {
     });
 
     this.form.get('option').valueChanges.subscribe((selectedOption) => {
-      // Modificado para comparar con la opción correspondiente
       if (selectedOption === '(Otros servicios)') {
         this.form.get('otroRecomendacion').enable();
       } else {
@@ -68,7 +67,6 @@ export class ContactoPage implements OnInit {
   async getOptions() {
     const uid = this.user && this.user.uid ? this.user.uid : '';
     const docData = await this.firebaseSvc.getDocument(`users/${uid}`);
-    // Modificado para obtener las opciones desde 'option' en lugar de 'options'
     this.options = docData['option'] || [];
   }
 
@@ -87,7 +85,6 @@ export class ContactoPage implements OnInit {
         email,
         telefono,
         mensaje,
-        // Modificado para comparar con la opción correspondiente
         option: otroRecomendacion ? 'Otro: ' + otroRecomendacion : option,
       };
 
@@ -100,6 +97,9 @@ export class ContactoPage implements OnInit {
         position: 'middle',
         icon: 'checkmark-circle-outline',
       });
+
+      // Limpiar campos después de enviar el formulario
+      this.form.reset();
     } catch (error) {
       console.error('Error al enviar el mensaje:', error);
 

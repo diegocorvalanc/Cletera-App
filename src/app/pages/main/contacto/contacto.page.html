@@ -8,8 +8,14 @@
     <app-custom-input autocomplete="email" icon="mail-outline" [control]="form.controls.email" type="email"
       label="Correo"></app-custom-input>
 
-    <app-custom-input autocomplete="telefono" icon="call-outline" [control]="form.controls.telefono" type="tel"
-      label="Teléfono" prefix="+569"></app-custom-input>
+    <app-custom-input
+      autocomplete="telefono"
+      icon="call-outline"
+      [control]="form.controls.telefono"
+      type="tel"
+      label="Teléfono"
+      prefix="+569"
+    ></app-custom-input>
 
     <app-custom-input autocomplete="Mensaje" icon="chatbox-ellipses-outline" [control]="form.controls.mensaje"
       type="text" label="Mensaje"></app-custom-input>
@@ -30,6 +36,5 @@
       Enviar Formulario
       <ion-icon slot="end" name="log-in-outline"></ion-icon>
     </ion-button>
-
   </form>
 </ion-content>
