@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { CartComponent } from 'src/app/shared/components/cart/cart.component';
 import { CartService } from 'src/app/services/cart.service';
+import { ModalController } from '@ionic/angular';
+import { ProductDetailComponent } from 'src/app/shared/components/product-detail/product-detail.component';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +27,8 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
-    private cartService: CartService
+    private cartService: CartService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {}
@@ -181,5 +184,16 @@ export class HomePage implements OnInit {
 
   navigateToProductList() {
     this.router.navigate(['/product-list']);
+  }
+
+  // Detalle de producto
+  async openProductDetail(product: any) {
+    const modal = await this.modalController.create({
+      component: ProductDetailComponent,
+      componentProps: {
+        product: product,
+      },
+    });
+    return await modal.present();
   }
 }

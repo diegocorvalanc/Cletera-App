@@ -25,7 +25,9 @@
             <div class="rating">
               <ion-icon name="star" *ngFor="let star of [1,2,3,4,5]" [class.filled]="p.rating >= star"
                 (click)="rateProduct(p, star)"></ion-icon>
-            </div>
+            </div><br>
+            <ion-button class="details-button" slot="end" size="small"
+              (click)="openProductDetail(p)">Detalles</ion-button>
           </ion-label>
           <ion-button slot="end" (click)="addToCart(p)">Agregar al carrito</ion-button>
         </ion-item>

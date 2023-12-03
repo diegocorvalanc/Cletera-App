@@ -7,8 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddUpdateProductComponent } from './components/add-update-product/add-update-product.component';
 import { CartComponent } from './components/cart/cart.component';
-
-
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -16,21 +15,18 @@ import { CartComponent } from './components/cart/cart.component';
     CustomInputComponent,
     LogoComponent,
     AddUpdateProductComponent,
-    CartComponent
+    CartComponent,
+    ProductDetailComponent,
   ],
-  exports:[
+  exports: [
     HeaderComponent,
     CustomInputComponent,
     LogoComponent,
     ReactiveFormsModule,
     AddUpdateProductComponent,
-    CartComponent
+    CartComponent,
+    ProductDetailComponent,
   ],
-  imports: [
-    CommonModule,
-    IonicModule,
-    ReactiveFormsModule,
-    FormsModule
-  ]
+  imports: [CommonModule, IonicModule, ReactiveFormsModule, FormsModule],
 })
-export class SharedModule { }
+export class SharedModule {}
