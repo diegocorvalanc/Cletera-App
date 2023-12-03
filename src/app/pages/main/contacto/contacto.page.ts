@@ -34,7 +34,7 @@ export class ContactoPage implements OnInit {
       Validators.minLength(8),
       Validators.maxLength(8),
     ]),
-    mensaje: new FormControl(''),
+    mensaje: new FormControl('', [Validators.maxLength(500)]),
     option: new FormControl(''),
     otroRecomendacion: new FormControl({ value: '', disabled: true }),
     id: new FormControl(''),

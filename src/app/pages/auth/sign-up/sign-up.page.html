@@ -2,13 +2,26 @@
 
 <ion-content>
   <div class="d-flex-center">
-    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+    <form
+      [formGroup]="form"
+      class="auth-form"
+      (ngSubmit)="submit()"
+      (keypress.enter)="submit()"
+    >
       <app-logo></app-logo>
       <!--Input de Nombre usuario-->
-      <app-custom-input autocomplete="name" icon="person-outline" [control]="form.controls.name" type="text"
-        label="Nombre Usuario"></app-custom-input>
+      <app-custom-input
+        autocomplete="name"
+        icon="person-outline"
+        [control]="form.controls.name"
+        type="text"
+        label="Nombre Usuario"
+      ></app-custom-input>
       <!--Validacion Nombre usuario-->
-      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+      <div
+        class="validators"
+        *ngIf="form.controls.name.errors && form.controls.name.touched"
+      >
         <div *ngIf="form.controls.name.errors?.['required']">
           Este campo es requerido
         </div>
@@ -18,10 +31,18 @@
       </div>
 
       <!--Input de correo-->
-      <app-custom-input autocomplete="email" icon="mail-outline" [control]="form.controls.email" type="email"
-        label="Correo"></app-custom-input>
+      <app-custom-input
+        autocomplete="email"
+        icon="mail-outline"
+        [control]="form.controls.email"
+        type="email"
+        label="Correo"
+      ></app-custom-input>
       <!--Validacion correo-->
-      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+      <div
+        class="validators"
+        *ngIf="form.controls.email.errors && form.controls.email.touched"
+      >
         <div *ngIf="form.controls.email.errors?.['required']">
           El correo es requerido
         </div>
@@ -31,22 +52,33 @@
       </div>
 
       <!--Input de Contraseña-->
-      <app-custom-input [control]="form.controls.password" type="password" label="contraseña"
-        icon="lock-closed-outline"></app-custom-input>
+      <app-custom-input
+        [control]="form.controls.password"
+        type="password"
+        label="contraseña"
+        icon="lock-closed-outline"
+        placeholder="Min. 6 Caracteres y debe tener letras y números"
+      ></app-custom-input>
       <!--Validación contraseña-->
-      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+      <div
+        class="validators"
+        *ngIf="form.controls.password.errors && form.controls.password.touched"
+      >
         <div *ngIf="form.controls.password.errors?.['required']">
           La contraseña es requerida
         </div>
       </div>
 
-
-      <ion-button expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+      <ion-button
+        expand="block"
+        mode="ios"
+        class="submit"
+        type="submit"
+        [disabled]="form.invalid"
+      >
         Registrate
         <ion-icon slot="end" name="person-add-outline"></ion-icon>
       </ion-button>
-
-
     </form>
   </div>
 </ion-content>

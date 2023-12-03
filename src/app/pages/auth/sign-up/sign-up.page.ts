@@ -13,7 +13,7 @@ export class SignUpPage implements OnInit {
   form = new FormGroup({
     uid: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6),Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
     role: new FormControl('Cletero'), // new role field with default value
   });

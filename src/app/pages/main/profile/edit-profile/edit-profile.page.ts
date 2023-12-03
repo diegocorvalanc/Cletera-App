@@ -19,6 +19,7 @@ export class EditProfilePage implements OnInit {
     telefono: new FormControl('', [
       Validators.pattern(/^[0-9]*$/),
       Validators.maxLength(8),
+      Validators.minLength(8),
     ]),
     comuna: new FormControl(''),
   });
