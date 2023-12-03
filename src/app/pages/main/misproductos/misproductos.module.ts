@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { MisproductosPageRoutingModule } from './misproductos-routing.module';
 
 import { MisproductosPage } from './misproductos.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MisproductosPageRoutingModule
+    MisproductosPageRoutingModule,
+    SharedModule,
   ],
-  declarations: [MisproductosPage]
+  declarations: [MisproductosPage],
 })
 export class MisproductosPageModule {}
