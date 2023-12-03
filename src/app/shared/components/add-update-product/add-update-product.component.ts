@@ -71,7 +71,7 @@ export class AddUpdateProductComponent implements OnInit {
     this.form.controls.image.setValue(imageUrl);
 
     // Agregar el uid del creador
-    this.form.controls['creatorUid'].setValue(this.user.name);
+    this.form.controls['creatorUid'].setValue(this.user.uid);
 
     delete this.form.value.id;
 

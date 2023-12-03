@@ -124,7 +124,7 @@ export class HomePage implements OnInit {
     const currentUser = this.user();
 
     if (
-      currentUser.name === product.creatorUid ||
+      currentUser.uid === product.creatorUid ||
       currentUser.role === 'Admin'
     ) {
       let path = `Producto/${product.id}`;
