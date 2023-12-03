@@ -39,10 +39,16 @@ const routes: Routes = [
       },
       {
         path: 'contacto',
-        loadChildren: () => import('./contacto/contacto.module').then( m => m.ContactoPageModule)
+        loadChildren: () => import('./contacto/contacto.module').then( m => m.ContactoPageModule),
       },
+      {
+        path: 'misproductos',
+        loadChildren: () => import('./misproductos/misproductos.module').then( m => m.MisproductosPageModule)
+      },
+
     ],
   },
+
 
 
 ];
