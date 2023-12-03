@@ -91,12 +91,39 @@ export class HomePage implements OnInit {
     });
   }
 
-  async addUpdateProduct(product?: Product) {
+  async addProduct() {
+    let success = await this.utilsSvc.presentModal({
+      component: AddUpdateProductComponent,
+      cssClass: 'add-update-modal',
+      componentProps: { product: null },
+    });
+
+    if (success) this.getProducts();
+  }
+
+  async updateProduct(product: Product) {
+    const currentUser = this.user();
+
+    if (
+      currentUser.uid !== product.creatorUid &&
+      currentUser.role !== 'Admin'
+    ) {
+      this.utilsSvc.presentToast({
+        message: 'No tienes permiso para editar este producto.',
+        duration: 2500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'alert-circle-outline',
+      });
+      return;
+    }
+
     let success = await this.utilsSvc.presentModal({
       component: AddUpdateProductComponent,
       cssClass: 'add-update-modal',
       componentProps: { product },
     });
+
     if (success) this.getProducts();
   }
 
