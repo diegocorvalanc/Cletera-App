@@ -35,7 +35,7 @@
         <!-- Opciones -->
         <ion-item-options *ngIf="user()?.role === 'Admin' || user()?.role === 'Taller'">
           <!-- Editar -->
-          <ion-item-option (click)="addUpdateProduct(p)">
+          <ion-item-option (click)="updateProduct(p)">
             <ion-icon class="option-btn" name="create-outline"></ion-icon>
           </ion-item-option>
           <!-- Eliminar -->
@@ -74,7 +74,7 @@
 <!-- Nuevo producto -->
 <ion-fab class="custom-fab" *ngIf="user()?.role === 'Admin' || user()?.role === 'Taller'" vertical="bottom"
   horizontal="end">
-  <ion-fab-button (click)="addUpdateProduct()">
+  <ion-fab-button (click)="addProduct()">
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>
