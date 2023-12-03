@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Cart } from 'src/app/models/cart.model';
 import { Product } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',

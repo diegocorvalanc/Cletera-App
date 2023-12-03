@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { RedirectGuard } from 'src/app/services/redirectguard.service';
 
 import { MainPage } from './main.page';
 
@@ -36,21 +37,24 @@ const routes: Routes = [
         path: 'commit',
         loadChildren: () =>
           import('./commit/commit.module').then((m) => m.CommitPageModule),
+        canActivate: [RedirectGuard],
       },
       {
         path: 'contacto',
-        loadChildren: () => import('./contacto/contacto.module').then( m => m.ContactoPageModule),
+        loadChildren: () =>
+          import('./contacto/contacto.module').then(
+            (m) => m.ContactoPageModule
+          ),
       },
       {
         path: 'misproductos',
-        loadChildren: () => import('./misproductos/misproductos.module').then( m => m.MisproductosPageModule)
+        loadChildren: () =>
+          import('./misproductos/misproductos.module').then(
+            (m) => m.MisproductosPageModule
+          ),
       },
-
     ],
   },
-
-
-
 ];
 
 @NgModule({
