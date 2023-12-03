@@ -31,6 +31,7 @@ export class ContactoPage implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     telefono: new FormControl('', [
       Validators.pattern(/^[0-9]*$/),
+      Validators.minLength(8),
       Validators.maxLength(8),
     ]),
     mensaje: new FormControl(''),
@@ -77,7 +78,8 @@ export class ContactoPage implements OnInit {
         return;
       }
 
-      const { name, email, telefono, mensaje, option, otroRecomendacion, id } = this.form.value;
+      const { name, email, telefono, mensaje, option, otroRecomendacion, id } =
+        this.form.value;
 
       const contactoData: Contacto = {
         id: id,
