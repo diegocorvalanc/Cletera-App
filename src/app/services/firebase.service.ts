@@ -130,8 +130,4 @@ export class FirebaseService {
   async addContacto(contactoData: Contacto) {
     return addDoc(collection(getFirestore(), 'Contacto'), contactoData);
   }
-
-  //================ actualizar perfil ===========
-
-
 }

@@ -65,7 +65,7 @@ export class CartService {
   }
 
   async getToken(): Promise<string> {
-    const url = 'http://localhost:4000/generar_token';
+    const url = 'https://transbank-demo.onrender.com/generar_token';
     const body = {
       orderId: this.getOrderId(),
       sessionId: this.getSessionId(),
