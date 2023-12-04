@@ -1,9 +1,15 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+interface UserData {
+  direccion?: string;
+  telefono?: string;
+  comuna?: string;
+}
 
 @Component({
   selector: 'app-edit-profile',
@@ -11,8 +17,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage implements OnInit {
-  @Input() user: User;
-
   form = new FormGroup({
     name: new FormControl(''),
     password: new FormControl('', [Validators.min(0)]),
@@ -25,8 +29,7 @@ export class EditProfilePage implements OnInit {
     comuna: new FormControl(''),
   });
 
-  firebaseSvc = inject(FirebaseService);
-  utilSvc = inject(UtilsService);
+  utilSvc: UtilsService;
 
   showPassword = false;
 
@@ -34,38 +37,45 @@ export class EditProfilePage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private firebaseSvc: FirebaseService,
+    private utilsService: UtilsService
+  ) {
+    this.utilSvc = utilsService;
+  }
 
-  ngOnInit() {
-    // Verificar si this.user está definido antes de acceder a sus propiedades
-    if (this.user) {
-      this.form.patchValue({
-        name: this.user.name || '',
-        direccion: this.user.direccion || '',
-        telefono: this.user.telefono || '+569',
-        comuna: this.user.comuna || '',
-      });
+  async ngOnInit() {
+    try {
+      // Obtener el usuario actual
+      const currentUser = this.firebaseSvc.getAuth().currentUser;
+      if (currentUser) {
+        // Obtener información adicional del usuario desde Firestore
+        const userData = (await this.firebaseSvc.getDocument(`users/${currentUser.uid}`)) as UserData;
+        if (userData) {
+          // Preenlazar todos los campos con los datos del usuario
+          this.form.patchValue({
+            name: currentUser.displayName || '',
+            direccion: userData['direccion'] || '',
+            telefono: userData['telefono'] || '',
+            comuna: userData['comuna'] || '',
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error al obtener información del usuario:', error);
     }
   }
 
-  // Método para actualizar el perfil del usuario
   async updateProfile() {
     try {
-      // Obtener el UID del usuario actual
       const user = this.firebaseSvc.getAuth().currentUser;
       if (!user) {
         console.error('Usuario no autenticado');
         return;
       }
 
-      const uid = user.uid;
-
       const { name, direccion, telefono, comuna } = this.form.value;
-
-      // Obtener los datos actuales del usuario
-      const currentUserData = await this.firebaseSvc.getDocument(
-        `users/${uid}`
-      );
 
       // Verificar si al menos un campo está completo
       if (!name && !direccion && !telefono && !comuna) {
@@ -85,21 +95,18 @@ export class EditProfilePage implements OnInit {
         return;
       }
 
-      // Función auxiliar para obtener propiedades dinámicamente
-      const getPropertyValue = (property: string) => currentUserData[property];
-
-      // Actualizar datos en la base de datos
-      await this.firebaseSvc.updateDocument(`users/${uid}`, {
-        name: name || getPropertyValue('name'),
-        direccion: direccion || getPropertyValue('direccion'),
-        telefono: telefono || getPropertyValue('telefono'),
-        comuna: comuna || getPropertyValue('comuna'),
-      });
-
-      // Actualizar datos en la autenticación (opcional)
+      // Actualizar datos en la autenticación
       if (name) {
         await this.firebaseSvc.updateUser(name);
       }
+
+      // Actualizar datos en la base de datos
+      await this.firebaseSvc.updateDocument(`users/${user.uid}`, {
+        name: name,
+        direccion: direccion || '',
+        telefono: telefono || '',
+        comuna: comuna || '',
+      });
 
       this.utilSvc.presentToast({
         message: 'Perfil actualizado exitosamente',

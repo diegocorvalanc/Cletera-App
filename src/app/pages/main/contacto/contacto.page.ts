@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { Contacto } from 'src/app/models/contacto.model';
@@ -27,31 +27,42 @@ export class ContactoPage implements OnInit {
   ];
 
   form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    telefono: new FormControl('', [
-      Validators.pattern(/^[0-9]*$/),
-      Validators.minLength(8),
-      Validators.maxLength(8),
-    ]),
+    name: new FormControl({ value: '', disabled: true }),
+    email: new FormControl({ value: '', disabled: true }),
+    telefono: new FormControl({ value: '', disabled: true }),
     mensaje: new FormControl('', [Validators.maxLength(500)]),
     option: new FormControl(''),
     otroRecomendacion: new FormControl({ value: '', disabled: true }),
     id: new FormControl(''),
   });
 
-  firebaseSvc = inject(FirebaseService);
-  utilsSvc = inject(UtilsService);
+  constructor(
+    @Inject(FirebaseService) private firebaseSvc: FirebaseService,
+    @Inject(UtilsService) private utilsSvc: UtilsService
+  ) {}
 
   ngOnInit() {
     this.getOptions();
 
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.form.patchValue({
+          name: user.displayName || '',
+          email: user.email || '',
+          telefono: '', // Dejamos el teléfono en blanco por ahora, lo actualizaremos después
           id: user.uid,
         });
+
+        try {
+          const userData = await this.firebaseSvc.getDocument(`users/${user.uid}`);
+          // Actualizamos el teléfono si está disponible en Firestore
+          this.form.patchValue({
+            telefono: userData && userData['telefono'] !== undefined ? userData['telefono'] : '',
+          });
+        } catch (error) {
+          console.error('Error al obtener datos del usuario desde Firestore:', error);
+        }
       }
     });
 
@@ -68,7 +79,7 @@ export class ContactoPage implements OnInit {
   async getOptions() {
     const uid = this.user && this.user.uid ? this.user.uid : '';
     const docData = await this.firebaseSvc.getDocument(`users/${uid}`);
-    this.options = docData['option'] || [];
+    this.options = docData && docData['option'] !== undefined ? docData['option'] : [];
   }
 
   async submitForm() {
@@ -81,11 +92,21 @@ export class ContactoPage implements OnInit {
       const { name, email, telefono, mensaje, option, otroRecomendacion, id } =
         this.form.value;
 
+      // Validar que el teléfono tenga un valor definido y sea válido
+      const telefonoValue = telefono !== undefined ? telefono : '';
+      if (telefonoValue && (isNaN(Number(telefonoValue)) || telefonoValue.length !== 8)) {
+        console.error('Número de teléfono no válido.');
+        return;
+      }
+
+      // Obtener datos del usuario actual en Firestore
+      const userData = await this.firebaseSvc.getDocument(`users/${id}`);
+
       const contactoData: Contacto = {
         id: id,
-        name,
-        email,
-        telefono,
+        name: userData && userData['name'] !== undefined ? userData['name'] : '',
+        email: userData && userData['email'] !== undefined ? userData['email'] : '',
+        telefono: userData && userData['telefono'] !== undefined ? userData['telefono'] : '',
         mensaje,
         option: otroRecomendacion ? 'Otro: ' + otroRecomendacion : option,
       };
@@ -100,8 +121,11 @@ export class ContactoPage implements OnInit {
         icon: 'checkmark-circle-outline',
       });
 
-      // Limpiar campos después de enviar el formulario
-      this.form.reset();
+      // Limpiar solo el mensaje y la opción
+      this.form.patchValue({
+        mensaje: '',
+        option: '',
+      });
     } catch (error) {
       console.error('Error al enviar el mensaje:', error);
 
