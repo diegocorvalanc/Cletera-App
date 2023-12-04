@@ -13,7 +13,10 @@ export class SignUpTallerPage implements OnInit {
   form = new FormGroup({
     uid: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+    ]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
     role: new FormControl('Taller'), // new role field with default value
     tname: new FormControl('', [Validators.minLength(4)]),

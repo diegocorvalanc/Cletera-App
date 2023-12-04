@@ -13,7 +13,11 @@ export class MainPage implements OnInit {
   pages = [
     { title: 'Inicio', url: '/main/home', icon: 'home-outline' },
     { title: 'Perfil', url: '/main/profile', icon: 'person-outline' },
-    { title: 'Mis Productos', url: '/main/misproductos', icon: 'clipboard-outline' },
+    {
+      title: 'Mis Productos',
+      url: '/main/misproductos',
+      icon: 'clipboard-outline',
+    },
     { title: 'Informa2', url: '/main/informa2', icon: 'newspaper-outline' },
     {
       title: 'Contactenos',

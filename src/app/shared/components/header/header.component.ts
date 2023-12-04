@@ -7,8 +7,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent  implements OnInit {
-
+export class HeaderComponent implements OnInit {
   @Input() title!: string;
   @Input() role!: string;
   @Input() backButton!: string;
@@ -16,15 +15,14 @@ export class HeaderComponent  implements OnInit {
   @Input() showMenu!: boolean;
 
   utilsSvc = inject(UtilsService);
-   // Datos de usuario
-  user(): User{
+  // Datos de usuario
+  user(): User {
     return this.utilsSvc.getFromLocalStorage('user');
   }
 
   ngOnInit() {}
 
-  dismissModal(){
+  dismissModal() {
     this.utilsSvc.dismissModal();
   }
-
 }

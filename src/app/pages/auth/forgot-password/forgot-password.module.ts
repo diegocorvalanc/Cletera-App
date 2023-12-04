@@ -15,8 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     ForgotPasswordPageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [ForgotPasswordPage]
+  declarations: [ForgotPasswordPage],
 })
 export class ForgotPasswordPageModule {}

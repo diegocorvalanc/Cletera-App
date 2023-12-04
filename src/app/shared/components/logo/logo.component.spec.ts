@@ -9,8 +9,8 @@ describe('LogoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogoComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [LogoComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LogoComponent);

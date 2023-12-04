@@ -11,8 +11,5 @@ export class NosotrosPage implements OnInit {
   firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService);
 
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

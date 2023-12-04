@@ -6,8 +6,8 @@ import { CommitPage } from './commit.page';
 const routes: Routes = [
   {
     path: '',
-    component: CommitPage
-  }
+    component: CommitPage,
+  },
 ];
 
 @NgModule({

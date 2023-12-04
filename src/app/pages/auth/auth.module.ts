@@ -15,8 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     AuthPageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [AuthPage]
+  declarations: [AuthPage],
 })
 export class AuthPageModule {}
