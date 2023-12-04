@@ -9,9 +9,8 @@ import { Observable } from 'rxjs';
 import { FirebaseService } from '../services/firebase.service';
 import { UtilsService } from '../services/utils.service';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NoAuthGuard implements CanActivate {
   firebaseSvc = inject(FirebaseService);
@@ -25,17 +24,14 @@ export class NoAuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-
-
     return new Promise((resolve) => {
       this.firebaseSvc.getAuth().onAuthStateChanged((auth) => {
         if (!auth) resolve(true);
-         else {
+        else {
           this.utilsSvc.routerLink('/main/home');
           resolve(false);
         }
       });
     });
   }
-
 }

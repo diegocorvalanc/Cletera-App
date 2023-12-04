@@ -6,20 +6,27 @@ import { AuthPage } from './auth.page';
 const routes: Routes = [
   {
     path: '',
-    component: AuthPage
+    component: AuthPage,
   },
   {
     path: 'sign-up',
-    loadChildren: () => import('./sign-up/sign-up.module').then( m => m.SignUpPageModule)
+    loadChildren: () =>
+      import('./sign-up/sign-up.module').then((m) => m.SignUpPageModule),
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
-  },  {
+    loadChildren: () =>
+      import('./forgot-password/forgot-password.module').then(
+        (m) => m.ForgotPasswordPageModule
+      ),
+  },
+  {
     path: 'sign-up-taller',
-    loadChildren: () => import('./sign-up-taller/sign-up-taller.module').then( m => m.SignUpTallerPageModule)
-  }
-
+    loadChildren: () =>
+      import('./sign-up-taller/sign-up-taller.module').then(
+        (m) => m.SignUpTallerPageModule
+      ),
+  },
 ];
 
 @NgModule({

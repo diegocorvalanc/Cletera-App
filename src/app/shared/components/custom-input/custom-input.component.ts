@@ -6,9 +6,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './custom-input.component.html',
   styleUrls: ['./custom-input.component.scss'],
 })
-export class CustomInputComponent  implements OnInit {
-
-
+export class CustomInputComponent implements OnInit {
   @Input() control!: FormControl;
   @Input() type: string = 'password';
   @Input() label!: string;
@@ -16,12 +14,10 @@ export class CustomInputComponent  implements OnInit {
   @Input() icon!: string;
   @Input() placeholder!: string;
 
-
   isPassword!: boolean;
   hide: boolean = true;
 
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     if (this.type == 'password') this.isPassword = true;
@@ -32,5 +28,4 @@ export class CustomInputComponent  implements OnInit {
     if (this.hide) this.type = 'password';
     else this.type = 'text';
   }
-
 }

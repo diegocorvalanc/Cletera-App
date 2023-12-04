@@ -15,8 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     NosotrosPageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [NosotrosPage]
+  declarations: [NosotrosPage],
 })
 export class NosotrosPageModule {}
