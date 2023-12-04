@@ -34,18 +34,27 @@ export class HomePage implements OnInit {
   ngOnInit() {}
 
   rateProduct(product: Product, rating: number) {
-    // Asignar el rating al producto
-    product.rating = rating;
+    const currentUser = this.user();
 
-    // Guardar el rating en Firestore
-    this.saveRatingToFirestore(product.id, rating)
-      .then(() => {
-        console.log('Rating guardado en Firestore');
-      })
-      .catch((error) => {
-        console.error('Error al guardar el rating en Firestore:', error);
-        // Puedes manejar el error según tus necesidades
-      });
+    if (currentUser.role === 'Cletero') {
+      // Asignar el rating al producto
+      product.rating = rating;
+
+      // Guardar el rating en Firestore
+      this.saveRatingToFirestore(product.id, rating)
+        .then(() => {
+          console.log('Rating guardado en Firestore');
+        })
+        .catch((error) => {
+          console.error('Error al guardar el rating en Firestore:', error);
+          // Puedes manejar el error según tus necesidades
+        });
+    } else {
+      console.error(
+        'Solo los usuarios con el rol de Cletero pueden calificar productos'
+      );
+      // Puedes manejar esta situación según tus necesidades
+    }
   }
 
   private saveRatingToFirestore(
