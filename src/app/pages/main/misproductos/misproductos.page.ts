@@ -30,9 +30,7 @@ export class MisproductosPage implements OnInit {
     private modalController: ModalController
   ) {}
 
-  ngOnInit() {
-    const currentUser = this.user();
-  }
+  ngOnInit() {}
 
   // Datos de usuario
   user(): User {
@@ -40,6 +38,23 @@ export class MisproductosPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    try {
+      const currentUser = this.user();
+
+      if (currentUser.role === 'Cletero') {
+        this.router.navigate(['/main/home']);
+        this.utilsSvc.presentToast({
+          message:
+            'Usuario Cletero no tiene permiso para usar la vista <Mis Productos>.',
+          duration: 1000,
+          color: 'primary',
+          position: 'middle',
+          icon: 'alert-circle-outline',
+        });
+      }
+    } catch (error) {
+      console.error('Error al verificar el rol del usuario:', error);
+    }
     this.getProducts();
   }
 
