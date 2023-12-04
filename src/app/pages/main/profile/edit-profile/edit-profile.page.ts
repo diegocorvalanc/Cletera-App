@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -32,6 +33,8 @@ export class EditProfilePage implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     // Verificar si this.user está definido antes de acceder a sus propiedades
@@ -105,6 +108,7 @@ export class EditProfilePage implements OnInit {
         position: 'middle',
         icon: 'checkmark-circle-outline',
       });
+      this.router.navigate(['/main/profile']);
     } catch (error) {
       console.error('Error al actualizar el perfil:', error);
 
