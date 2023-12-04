@@ -12,3 +12,20 @@
 Redcompra: 4511 3466 6003 7060
 rut: 11.111.111-1
 pw: 123
+
+## Cuentas de Prueba:
+
+# Admin
+
+Correo: bryan.robles.araya.1998@gmail.com
+Clave: Admin123
+
+# Taller
+
+Correo: dcorvalan94@gmail.com
+Clave: Taller123
+
+# Cletero
+
+Correo: bry.robles@duocuc.cl
+Clave: Cletero123
